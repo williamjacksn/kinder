@@ -8,12 +8,12 @@ import turtle
 class Shell(cmd.Cmd):
     prompt = '> '
 
+    def preloop(self):
+        turtle.shape('turtle')
+        turtle.width(3)
+
     def precmd(self, line):
         return line.lower()
-
-    @staticmethod
-    def do_say(arg):
-        subprocess.call(['say', arg])
 
     @staticmethod
     def do_draw(_):
@@ -36,13 +36,8 @@ class Shell(cmd.Cmd):
         turtle.forward(dist)
 
     @staticmethod
-    def do_triangle(arg):
-        turtle.forward(100)
-        turtle.left(120)
-        turtle.forward(100)
-        turtle.left(120)
-        turtle.forward(100)
-        turtle.left(120)
+    def do_pencolor(color):
+        turtle.pencolor(color)
 
     @staticmethod
     def do_left(degrees):
@@ -61,6 +56,16 @@ class Shell(cmd.Cmd):
         turtle.right(degrees)
 
     @staticmethod
+    def do_triangle(size):
+        size = int(size)
+        turtle.forward(size)
+        turtle.left(120)
+        turtle.forward(size)
+        turtle.left(120)
+        turtle.forward(size)
+        turtle.left(120)
+
+    @staticmethod
     def do_circle(size):
         try:
             size = int(size)
@@ -71,6 +76,11 @@ class Shell(cmd.Cmd):
     @staticmethod
     def do_reset(_):
         turtle.reset()
+        turtle.width(3)
+
+    @staticmethod
+    def do_home(_):
+        turtle.home()
 
     @staticmethod
     def do_quit(_):
